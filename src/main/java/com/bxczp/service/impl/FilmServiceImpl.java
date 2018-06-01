@@ -1,6 +1,7 @@
 package com.bxczp.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.annotation.Resource;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -33,7 +34,7 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public List<Film> list(Film film, Integer page, Integer pageSize) {
-        Pageable pageable = PageRequest.of(page, pageSize, Sort.Direction.ASC,"id");
+        Pageable pageable = PageRequest.of(page, pageSize, Sort.Direction.DESC,"publishDate");
         return filmRepository.findAll(new Specification<Film>() {
             
             /**
@@ -78,4 +79,16 @@ public class FilmServiceImpl implements FilmService {
         });
     }
 
+    @Override
+    public Film findById(Integer id) {
+        return filmRepository.findById(id).get();
+    }
+
+    @Override
+    public void delete(Integer id) {
+        filmRepository.deleteById(id);
+    }
+    
+    
+    
 }

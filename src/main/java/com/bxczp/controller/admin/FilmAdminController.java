@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.bxczp.entity.Film;
 import com.bxczp.service.FilmService;
 import com.bxczp.util.DateUtil;
+import com.bxczp.util.StringUtil;
 
 //是RestController,会把Map自动封装成Json串 
 @RestController
@@ -45,15 +46,15 @@ public class FilmAdminController {
         if(!imageFile.isEmpty()) {
             // 获取文件名
             String fileName = imageFile.getOriginalFilename();
-            film.setImageName(fileName);
             // 获取文件的后缀名
             String suffixName = fileName.substring(fileName.lastIndexOf("."));
             String newFileName=DateUtil.getCurrentDateStr()+suffixName;
+            film.setImageName(newFileName);
             FileUtils.copyInputStreamToFile(imageFile.getInputStream(), new File(imageFilePath+newFileName));
-            film.setPublishDate(new Date());
-            filmService.save(film);
-            map.put("success", true);
         }
+        film.setPublishDate(new Date());
+        filmService.save(film);
+        map.put("success", true);
         return map;
     }
     
@@ -88,5 +89,23 @@ public class FilmAdminController {
         return map;
     }
     
+    @RequestMapping("/delete")
+    public Map<String, Object> delete(String ids) {
+        Map<String, Object> map = new HashMap<>();
+        if (StringUtil.isNotEmpty(ids)) {
+            String[] id = ids.split(",");
+            for (String i : id) {
+                filmService.delete(Integer.parseInt(i));
+            }
+            map.put("success", true);
+        }
+        return map;
+    }
+    
+    
+    @RequestMapping("/findById")
+    public Film findById(String id) {
+        return filmService.findById(Integer.parseInt(id));
+    }
 
 }

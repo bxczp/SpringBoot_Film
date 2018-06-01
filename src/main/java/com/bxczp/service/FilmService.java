@@ -21,5 +21,7 @@ public interface FilmService {
     
     public Long count(Film film);
     
+    public Film findById(Integer id);
     
+    public void delete(Integer id);
 }

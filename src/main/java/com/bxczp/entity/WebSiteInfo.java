@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 /**
  * 网站动态更新电影信息
  * @author bxczp
@@ -34,7 +36,7 @@ public class WebSiteInfo {
     private String url;
     
     //发布日期
-    private Date publicDate;
+    private Date publishDate;
 
     @Id
     @GeneratedValue
@@ -84,14 +86,14 @@ public class WebSiteInfo {
         this.url = url;
     }
 
-    public Date getPublicDate() {
-        return publicDate;
+    @JsonSerialize(using=CustomDateSerializer.class)
+    public Date getPublishDate() {
+        return publishDate;
     }
 
-    public void setPublicDate(Date publicDate) {
-        this.publicDate = publicDate;
+    public void setPublishDate(Date publishDate) {
+        this.publishDate = publishDate;
     }
-    
     
     
 

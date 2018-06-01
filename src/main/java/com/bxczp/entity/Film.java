@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 /**
  * 电影实体
  * @author bxczp
@@ -94,6 +96,8 @@ public class Film {
         this.hot = hot;
     }
 
+    //需要用Json的序列化
+    @JsonSerialize(using=CustomDateTimeSerializer.class)
     public Date getPublishDate() {
         return publishDate;
     }
