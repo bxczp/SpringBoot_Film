@@ -41,10 +41,10 @@ public class WebSiteServiceImpl implements WebSiteService {
                 Predicate predicate = builder.conjunction();
                 if (webSite != null) {
                     if (StringUtil.isNotEmpty(webSite.getName())) {
-                        predicate.getExpressions().add(builder.like(root.get("name"), "%"+webSite.getName()+"%"));
+                        predicate.getExpressions().add(builder.like(root.get("name"), "%"+webSite.getName().trim()+"%"));
                     }
                     if (StringUtil.isNotEmpty(webSite.getUrl())) {
-                        predicate.getExpressions().add(builder.like(root.get("url"), "%"+webSite.getUrl()+"%"));
+                        predicate.getExpressions().add(builder.like(root.get("url"), "%"+webSite.getUrl().trim()+"%"));
                     }
                 }
                 return predicate;
@@ -66,10 +66,10 @@ public class WebSiteServiceImpl implements WebSiteService {
                 Predicate predicate = builder.conjunction();
                 if (webSite != null) {
                     if (StringUtil.isNotEmpty(webSite.getName())) {
-                        predicate.getExpressions().add(builder.like(root.get("name"), "%"+webSite.getName()+"%"));
+                        predicate.getExpressions().add(builder.like(root.get("name"), "%"+webSite.getName().trim()+"%"));
                     }
                     if (StringUtil.isNotEmpty(webSite.getUrl())) {
-                        predicate.getExpressions().add(builder.like(root.get("url"), "%"+webSite.getUrl()+"%"));
+                        predicate.getExpressions().add(builder.like(root.get("url"), "%"+webSite.getUrl().trim()+"%"));
                     }
                 }
                 return predicate;

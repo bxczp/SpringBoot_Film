@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bxczp.entity.WebSite;
+import com.bxczp.service.WebSiteInfoService;
 import com.bxczp.service.WebSiteService;
 import com.bxczp.util.StringUtil;
 
@@ -20,6 +21,9 @@ public class WebSiteAdminController {
     
     @Resource
     private WebSiteService webSiteService;
+    
+    @Resource
+    private WebSiteInfoService webSiteInfoService;
     
     @RequestMapping("/list")
     public Map<String, Object> list(WebSite webSite, @RequestParam(value="page", required=false)int page,
@@ -45,12 +49,22 @@ public class WebSiteAdminController {
     @RequestMapping("/delete")
     public Map<String, Object> delete(String ids) {
         Map<String, Object> map = new HashMap<>();
+        boolean flag = true;
         if (StringUtil.isNotEmpty(ids)) {
             String[] id = ids.split(",");
             for (String i : id) {
-                webSiteService.delete(Integer.parseInt(i));
+                if (webSiteInfoService.getByWebSiteId(Integer.parseInt(i)).isEmpty()) {
+                    webSiteService.delete(Integer.parseInt(i));
+                } else {
+                    flag =false;
+                }
             }
-            map.put("success", true);
+            if (flag) {
+                map.put("success", true);
+            } else {
+                map.put("success", flag);
+                map.put("errorMsg", "电影动态中存在数据，不能删除！");
+            }
         }
         return map;
     }

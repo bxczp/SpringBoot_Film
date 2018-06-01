@@ -47,7 +47,7 @@ public class FilmServiceImpl implements FilmService {
                 Predicate predicate = builder.conjunction();
                 if (film != null) {
                     if (StringUtil.isNotEmpty(film.getName())) {
-                        predicate.getExpressions().add(builder.like(root.get("name"), "%"+film.getName()+"%"));
+                        predicate.getExpressions().add(builder.like(root.get("name"), "%"+film.getName().trim()+"%"));
                     }
                     
                 }
@@ -70,7 +70,7 @@ public class FilmServiceImpl implements FilmService {
                 Predicate predicate = builder.conjunction();
                 if (film != null) {
                     if (StringUtil.isNotEmpty(film.getName())) {
-                        predicate.getExpressions().add(builder.like(root.get("name"), film.getName()));
+                        predicate.getExpressions().add(builder.like(root.get("name"), "%"+film.getName().trim()+"%"));
                     }
                 }
                 return predicate;

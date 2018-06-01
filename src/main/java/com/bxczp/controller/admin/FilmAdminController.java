@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.bxczp.entity.Film;
 import com.bxczp.service.FilmService;
+import com.bxczp.service.WebSiteInfoService;
 import com.bxczp.util.DateUtil;
 import com.bxczp.util.StringUtil;
 
@@ -32,6 +33,9 @@ public class FilmAdminController {
     
     @Resource
     private FilmService filmService;
+    
+    @Resource
+    private WebSiteInfoService webSiteInfoService;
     
     /**
      * 添加或修改电影信息
@@ -92,12 +96,22 @@ public class FilmAdminController {
     @RequestMapping("/delete")
     public Map<String, Object> delete(String ids) {
         Map<String, Object> map = new HashMap<>();
+        boolean flag = true;
         if (StringUtil.isNotEmpty(ids)) {
             String[] id = ids.split(",");
             for (String i : id) {
-                filmService.delete(Integer.parseInt(i));
+                if (webSiteInfoService.getByFilmId(Integer.parseInt(i)).isEmpty()) {
+                    filmService.delete(Integer.parseInt(i));
+                } else {
+                    flag = false;
+                }
             }
-            map.put("success", true);
+            if(flag) {
+                map.put("success", true);
+            } else {
+                map.put("success", false);
+                map.put("errorMsg", "电影动态中存在数据，电影不能删除！");
+            }
         }
         return map;
     }
