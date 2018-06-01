@@ -1,6 +1,7 @@
 package com.bxczp.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import com.bxczp.entity.Film;
 
@@ -9,6 +10,6 @@ import com.bxczp.entity.Film;
  * @author bxczp
  *
  */
-public interface FilmRepository extends JpaRepository<Film, Integer> {
+public interface FilmRepository extends JpaRepository<Film, Integer>, JpaSpecificationExecutor<Film>{
 
 }

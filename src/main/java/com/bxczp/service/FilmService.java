@@ -1,5 +1,7 @@
 package com.bxczp.service;
 
+import java.util.List;
+
 import com.bxczp.entity.Film;
 
 /**
@@ -14,6 +16,10 @@ public interface FilmService {
      * @param film
      */
     public void save(Film film);
+    
+    public List<Film> list(Film film, Integer page, Integer pageSize);
+    
+    public Long count(Film film);
     
     
 }

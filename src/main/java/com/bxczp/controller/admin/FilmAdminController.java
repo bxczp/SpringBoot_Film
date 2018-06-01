@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -49,7 +50,7 @@ public class FilmAdminController {
             String suffixName = fileName.substring(fileName.lastIndexOf("."));
             String newFileName=DateUtil.getCurrentDateStr()+suffixName;
             FileUtils.copyInputStreamToFile(imageFile.getInputStream(), new File(imageFilePath+newFileName));
-            film.setPublicDate(new Date());
+            film.setPublishDate(new Date());
             filmService.save(film);
             map.put("success", true);
         }
@@ -73,6 +74,18 @@ public class FilmAdminController {
         sb.append("</script>");
          
         return sb.toString();
+    }
+    
+    
+    @RequestMapping("/list")
+    public Map<String, Object> list(Film film, @RequestParam(value="page", required=false)int page,
+            @RequestParam(value="rows", required=false)int pageSize) {
+        Map<String, Object> map = new HashMap<>();
+        Long count = filmService.count(film);
+        List<Film> filmList = filmService.list(film, page-1, pageSize);
+        map.put("total", count);
+        map.put("rows", filmList);
+        return map;
     }
     
 

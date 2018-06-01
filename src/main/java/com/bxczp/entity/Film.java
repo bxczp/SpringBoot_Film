@@ -37,7 +37,7 @@ public class Film {
     private Integer hot;
     
     //发布日期
-    private Date publicDate;
+    private Date publishDate;
 
     @Id
     @GeneratedValue
@@ -94,12 +94,12 @@ public class Film {
         this.hot = hot;
     }
 
-    public Date getPublicDate() {
-        return publicDate;
+    public Date getPublishDate() {
+        return publishDate;
     }
 
-    public void setPublicDate(Date publicDate) {
-        this.publicDate = publicDate;
+    public void setPublishDate(Date publishDate) {
+        this.publishDate = publishDate;
     }
     
     
