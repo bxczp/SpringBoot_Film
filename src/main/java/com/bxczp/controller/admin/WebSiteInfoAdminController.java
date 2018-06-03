@@ -1,5 +1,6 @@
 package com.bxczp.controller.admin;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,11 +12,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bxczp.entity.WebSiteInfo;
+import com.bxczp.run.StartupRunner;
 import com.bxczp.service.WebSiteInfoService;
+import com.bxczp.util.StringUtil;
 
 @RestController
 @RequestMapping("/admin/webSiteInfo")
 public class WebSiteInfoAdminController {
+    
+    @Resource
+    private StartupRunner startupRunner;
     
     @Resource
     private WebSiteInfoService webSiteInfoService;
@@ -33,5 +39,28 @@ public class WebSiteInfoAdminController {
     }
     
     
+    @RequestMapping("/delete")
+    public Map<String, Object> delete(String ids) {
+        Map<String, Object> map = new HashMap<>();
+        if (StringUtil.isNotEmpty(ids)) {
+            String[] id = ids.split(",");
+            for (String i : id) {
+                webSiteInfoService.delete(Integer.parseInt(i));
+            }
+            map.put("success", true);
+        }
+        startupRunner.loadData();
+        return map;
+    }
+    
+    @RequestMapping("/save")
+    public Map<String, Object> save(WebSiteInfo webSiteInfo) {
+        Map<String, Object> map = new HashMap<>();
+        webSiteInfo.setPublishDate(new Date());
+        webSiteInfoService.save(webSiteInfo);
+        map.put("success", true);
+        startupRunner.loadData();
+        return map;
+    }
 
 }

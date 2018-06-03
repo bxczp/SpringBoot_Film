@@ -16,4 +16,10 @@ public interface WebSiteInfoService {
     public List<WebSiteInfo> getByFilmId(Integer filmId);
     
     public List<WebSiteInfo> getByWebSiteId(Integer webSiteId);
+    
+    public void save(WebSiteInfo webSiteInfo);
+    
+    public void delete(Integer id);
+    
+    
 }

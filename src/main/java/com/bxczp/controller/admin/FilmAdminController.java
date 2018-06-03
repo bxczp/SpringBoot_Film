@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.bxczp.entity.Film;
+import com.bxczp.run.StartupRunner;
 import com.bxczp.service.FilmService;
 import com.bxczp.service.WebSiteInfoService;
 import com.bxczp.util.DateUtil;
@@ -27,6 +28,9 @@ import com.bxczp.util.StringUtil;
 @RestController
 @RequestMapping("/admin/film")
 public class FilmAdminController {
+    
+    @Resource
+    private StartupRunner startupRunner;
     
     @Value("${imageFilePath}")
     private String imageFilePath;
@@ -59,6 +63,7 @@ public class FilmAdminController {
         film.setPublishDate(new Date());
         filmService.save(film);
         map.put("success", true);
+        startupRunner.loadData();
         return map;
     }
     
@@ -113,6 +118,7 @@ public class FilmAdminController {
                 map.put("errorMsg", "电影动态中存在数据，电影不能删除！");
             }
         }
+        startupRunner.loadData();
         return map;
     }
     
@@ -120,6 +126,17 @@ public class FilmAdminController {
     @RequestMapping("/findById")
     public Film findById(String id) {
         return filmService.findById(Integer.parseInt(id));
+    }
+    
+    @RequestMapping("/comboList")
+    public List<Film> comboList(@RequestParam(value="q", required=false)String name) {
+        List<Film> filmList = null;
+        if (StringUtil.isNotEmpty(name)) {
+            Film film = new Film();
+            film.setName(name);
+            filmList = filmService.list(film, 0, 30);
+        }
+        return filmList;
     }
 
 }

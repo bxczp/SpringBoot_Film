@@ -82,4 +82,14 @@ public class WebSiteInfoServiceImpl implements WebSiteInfoService {
         return webSiteInfoRepository.getByWebSiteId(webSiteId);
     }
 
+    @Override
+    public void save(WebSiteInfo webSiteInfo) {
+        webSiteInfoRepository.save(webSiteInfo);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        webSiteInfoRepository.deleteById(id);
+    }
+
 }

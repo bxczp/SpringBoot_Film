@@ -87,4 +87,23 @@ public class WebSiteServiceImpl implements WebSiteService {
         webSiteRepository.deleteById(id);
     }
 
+    @Override
+    public List<WebSite> newestList(Integer page, Integer pageSize) {
+        // 根据id字段升序
+        Pageable pageable = PageRequest.of(page, pageSize, Sort.Direction.DESC, "id");
+        Page<WebSite> webSiteList = webSiteRepository.findAll(new Specification<WebSite>() {
+            /**
+             * 
+             */
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public Predicate toPredicate(Root<WebSite> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
+                Predicate predicate = builder.conjunction();
+                return predicate;
+            }
+        }, pageable);
+        return webSiteList.getContent();
+    }
+
 }

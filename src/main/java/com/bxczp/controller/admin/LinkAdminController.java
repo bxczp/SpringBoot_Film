@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bxczp.entity.Link;
+import com.bxczp.run.StartupRunner;
 import com.bxczp.service.LinkService;
 import com.bxczp.util.StringUtil;
 
@@ -19,6 +20,9 @@ import com.bxczp.util.StringUtil;
 @RestController
 @RequestMapping("/admin/link")
 public class LinkAdminController {
+    
+    @Resource
+    private StartupRunner startupRunner;
     
     @Resource
     private LinkService linkService;
@@ -41,6 +45,7 @@ public class LinkAdminController {
         Map<String, Object> map = new HashMap<>();
         linkService.save(link);
         map.put("success", true);
+        startupRunner.loadData();
         return map;
     }
     
@@ -54,6 +59,7 @@ public class LinkAdminController {
             }
             map.put("success", true);
         }
+        startupRunner.loadData();
         return map;
     }
     

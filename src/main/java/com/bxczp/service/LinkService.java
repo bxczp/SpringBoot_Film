@@ -8,6 +8,8 @@ public interface LinkService {
     
     public List<Link> list(Integer page, Integer pageSize);
     
+    public List<Link> listAll();
+    
     public Long getCount();
     
     public void save(Link link);

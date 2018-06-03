@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bxczp.entity.WebSite;
+import com.bxczp.run.StartupRunner;
 import com.bxczp.service.WebSiteInfoService;
 import com.bxczp.service.WebSiteService;
 import com.bxczp.util.StringUtil;
@@ -18,6 +19,9 @@ import com.bxczp.util.StringUtil;
 @RestController
 @RequestMapping("/admin/webSite")
 public class WebSiteAdminController {
+    
+    @Resource
+    private StartupRunner startupRunner;
     
     @Resource
     private WebSiteService webSiteService;
@@ -42,6 +46,7 @@ public class WebSiteAdminController {
         Map<String, Object> map = new HashMap<>();
         webSiteService.save(webSite);
         map.put("success", true);
+        startupRunner.loadData();
         return map;
     }
     
@@ -66,7 +71,20 @@ public class WebSiteAdminController {
                 map.put("errorMsg", "电影动态中存在数据，不能删除！");
             }
         }
+        startupRunner.loadData();
         return map;
     }
 
+    
+    @RequestMapping("/comboList")
+    public List<WebSite> comboList(@RequestParam(value="q", required=false)String name) {
+        List<WebSite> webSiteList = null;
+        if (StringUtil.isNotEmpty(name)) {
+            WebSite webSite = new WebSite();
+            webSite.setName(name);
+            webSiteList = webSiteService.list(webSite, 0, 30);
+        }
+        return webSiteList;
+    }
+    
 }

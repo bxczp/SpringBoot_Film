@@ -63,7 +63,7 @@
 				return $(this).form("validate");
 			},
 			success:function(result){
-				var result=eval('('+result+')');
+                var result=eval('('+result+')');
 				if(result.success){
 					$.messager.alert("系统提示","保存成功！");
 					resetValue();
@@ -85,14 +85,17 @@
 		$("#info").val("");
 		$("#url").val("");
 	}
-	
+// 	文档加载完成后执行
 	$(document).ready(function(){
 		
 		$('#film').combobox({
 			mode:'remote',
 			url:'/admin/film/comboList',
+// 			下拉框的值
 			valueField:'id',
+			//下拉框的文本
 			textField:'name',
+// 			延迟0.1秒
 			delay:100
 		});
 		
