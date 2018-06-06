@@ -30,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //不允许跨域请求 
         http.csrf().disable().cors().disable().headers().disable()
         .authorizeRequests()
-        .antMatchers("/", "/static/**") //配置不需要认证的http请求
+        .antMatchers("/", "/static/**", "/film/**") //配置不需要认证的http请求
         .permitAll() //以上配置允许执行
         .anyRequest().authenticated() //其他的http请求需要访问认证
         // 如果认证失败 会 重定向 到 /login?error 请求 

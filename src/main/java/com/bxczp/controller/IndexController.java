@@ -11,6 +11,8 @@ public class IndexController {
     public ModelAndView index() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("title","首頁");
+        modelAndView.addObject("mainPage", "film/indexFilm");
+        modelAndView.addObject("mainPageKey", "#f");
         modelAndView.setViewName("index");
         return modelAndView;
     }

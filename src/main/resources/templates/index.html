@@ -6,22 +6,33 @@
 <link rel="stylesheet" href="/static/bootstrap3/css/bootstrap.min.css" />
 <link rel="stylesheet" href="/static/bootstrap3/css/bootstrap-theme.min.css" />
 <link rel="stylesheet" href="/static/css/film.css" />
+<script th:inline="javascript">
+	/*<![CDATA[*/  
+	window.onload=function(){
+		var error=[[${error}]];
+		if(error!=null){
+			alert(error);
+		}
+	}
+	/*]]>*/  
+</script>
 </head>
 <body>
-<div class="container">
+<div class="container" >
 	
-	<div class="row" >
+	<div class="row">
 		<div th:include="common/head::#h"></div>
 	</div>
 	
 	<div class="row">
-<!--  head  menu 是文件名  #m #h 是div的ID属性 -->
 		<div th:include="common/menu::#m"></div>
 	</div>
 	
 	<div class="row">
 	
 		<div class="col-md-8">
+			<div th:include="${mainPage}::${mainPageKey}"></div>
+<!--                 <div th:include="film/indexFilm::#f"></div> -->
 		</div>
 		
 		<div class="col-md-4">
@@ -30,7 +41,7 @@
 					<img src="/static/images/dynamic_icon.png" />
 					最新电影动态
 				</div>
-				<div class="datas" >
+				<div class="datas">
 					<ul>
 						<li th:each="newestInfo:${application.newestInfoList}"><span><a target="_blank" th:href="'/film/'+${newestInfo.film.id}" th:title="${newestInfo.film.name+' -> '+newestInfo.info}" th:text="${newestInfo.film.name+' -> '+newestInfo.info}"></a></span></li>
 					</ul>

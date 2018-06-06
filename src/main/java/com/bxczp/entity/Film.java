@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
@@ -51,6 +52,7 @@ public class Film {
         this.id = id;
     }
 
+    @NotEmpty(message="请输入要搜索的电影名称")
     @Column(length=500)
     public String getName() {
         return name;
