@@ -92,7 +92,7 @@
 				</div>
 				<div class="datas">
 					<ul>
-						<li th:each="link:${application.linkList}"><span><a target="_blank" th:href="${link.url}" th:title="${link.name}" th:text="${link.name}"></a></span></li>
+						<li th:each="link:${application.newestLinkList}"><span><a target="_blank" th:href="${link.url}" th:title="${link.name}" th:text="${link.name}"></a></span></li>
 					</ul>
 				</div>
 			</div>

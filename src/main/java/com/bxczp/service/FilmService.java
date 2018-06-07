@@ -2,6 +2,8 @@ package com.bxczp.service;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Query;
+
 import com.bxczp.entity.Film;
 
 /**
@@ -10,6 +12,11 @@ import com.bxczp.entity.Film;
  *
  */
 public interface FilmService {
+    
+    public Film getNextFilm(Integer id);
+    
+    public Film getPreFilm(Integer id);
+    
     
     /**
      * 添加或修改电影
@@ -24,4 +31,6 @@ public interface FilmService {
     public Film findById(Integer id);
     
     public void delete(Integer id);
+    
+    public List<Film> randomList(Integer n);
 }

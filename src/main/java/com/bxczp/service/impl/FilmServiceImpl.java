@@ -94,7 +94,21 @@ public class FilmServiceImpl implements FilmService {
     public void delete(Integer id) {
         filmRepository.deleteById(id);
     }
-    
+
+    @Override
+    public Film getNextFilm(Integer id) {
+        return filmRepository.getNextFilm(id);
+    }
+
+    @Override
+    public Film getPreFilm(Integer id) {
+        return filmRepository.getPreFilm(id);
+    }
+
+    @Override
+    public List<Film> randomList(Integer n) {
+        return filmRepository.randomList(n);
+    }
     
     
 }
